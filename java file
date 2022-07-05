@@ -1,0 +1,428 @@
+package Crawler;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JTextField;
+import java.awt.Point;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import javax.swing.JButton;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.JTextPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+
+public class SearchFinder extends JFrame {
+	private JTextField txtSearch;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SearchFinder frame = new SearchFinder();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	
+	public SearchFinder() {
+		getContentPane().setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		getContentPane().setBackground(Color.WHITE);
+		setTitle("Search Bar");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 719, 718);
+		getContentPane().setLayout(null);
+		getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setForeground(SystemColor.textHighlight);
+		lblNewLabel.setBounds(10, 129, 683, 29);
+		getContentPane().add(lblNewLabel);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setForeground(SystemColor.textHighlight);
+		lblNewLabel_1.setBounds(10, 169, 683, 29);
+		getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setForeground(SystemColor.textHighlight);
+		lblNewLabel_2.setBounds(10, 209, 683, 29);
+		getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setForeground(SystemColor.textHighlight);
+		lblNewLabel_3.setBounds(10, 249, 683, 29);
+		getContentPane().add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setForeground(SystemColor.textHighlight);
+		lblNewLabel_4.setBounds(10, 560, 683, 29);
+		getContentPane().add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setForeground(SystemColor.textHighlight);
+		lblNewLabel_5.setBounds(10, 289, 683, 29);
+		getContentPane().add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setForeground(SystemColor.textHighlight);
+		lblNewLabel_6.setBounds(10, 610, 683, 29);
+		getContentPane().add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("");
+		lblNewLabel_7.setForeground(SystemColor.textHighlight);
+		lblNewLabel_7.setBounds(10, 416, 683, 29);
+		getContentPane().add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("");
+		lblNewLabel_8.setForeground(SystemColor.textHighlight);
+		lblNewLabel_8.setBounds(10, 456, 683, 29);
+		getContentPane().add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_9 = new JLabel("");
+		lblNewLabel_9.setForeground(SystemColor.textHighlight);
+		lblNewLabel_9.setBounds(10, 496, 683, 29);
+		getContentPane().add(lblNewLabel_9);
+		
+		txtSearch = new JTextField();
+		txtSearch.setBackground(SystemColor.textHighlightText);
+		txtSearch.setHorizontalAlignment(SwingConstants.LEFT);
+		txtSearch.setFont(new Font("Arial", Font.PLAIN, 14));
+		txtSearch.setText("  Search");
+		txtSearch.setBounds(10, 22, 404, 43);
+		getContentPane().add(txtSearch);
+		txtSearch.setColumns(10);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setBorder(null);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ArrayList<webCrawler> workers = new ArrayList<>();
+				workers.add(new webCrawler("https://www.google.com/search?q="+txtSearch.getText(), 1));
+				workers.add(new webCrawler("https://en.wikipedia.org/wiki/"+txtSearch.getText(), 2));
+				ArrayList<String> finallis = new ArrayList<String>();
+			   
+				for (webCrawler w : workers) {
+					
+					try {
+						w.getThread().join();
+						ArrayList<String> visitedns = new ArrayList<String>();
+						
+						
+						visitedns =w.result();
+						for (int i = 0 ; i < visitedns.size();i++) {
+							finallis.add(visitedns.get(i));
+						}
+						
+						
+						
+						
+						
+						
+						
+						
+					}
+					catch(InterruptedException ele) {
+						ele.printStackTrace();
+					}
+				}
+				String firstlink = finallis.get(0);
+				String secondlink = finallis.get(1);
+				String thirdlink = finallis.get(2);
+				String fourlink = finallis.get(3);
+				String fivelink = finallis.get(4);
+				String sixlink = finallis.get(5);
+				String sevenlink = finallis.get(6);
+				String eightlink = finallis.get(7);
+				String ninelink = finallis.get(8);
+				String tenlink = finallis.get(9);
+			
+				
+				lblNewLabel.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(firstlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel.setText(firstlink);
+				
+				
+				lblNewLabel_1.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(secondlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_1.setText(secondlink);
+				
+				
+				lblNewLabel_2.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(thirdlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_2.setText(thirdlink);
+				
+				
+				lblNewLabel_3.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(fourlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_3.setText(fourlink);
+				
+				
+				
+				
+				lblNewLabel_4.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(fivelink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_4.setText(fivelink);
+				
+				
+				
+				
+				lblNewLabel_5.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(sixlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_5.setText(sixlink);
+				
+				
+				
+				lblNewLabel_6.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(sevenlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_6.setText(sevenlink);
+				
+				
+				
+				lblNewLabel_7.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(eightlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_7.setText(eightlink);
+				
+				
+				
+				lblNewLabel_8.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(ninelink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_8.setText(ninelink);
+				
+				
+				lblNewLabel_9.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						
+					        try {
+								Desktop.getDesktop().browse(new URI(tenlink));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (URISyntaxException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+					    
+					    
+					}
+				});
+				
+				
+				lblNewLabel_9.setText(tenlink);
+				
+				
+				
+				
+				
+				
+			}
+		});
+		btnNewButton.setForeground(Color.WHITE);
+		//here change the image path
+		btnNewButton.setIcon(new ImageIcon("C:\\Users\\hp\\Downloads\\oie_482214H2HFLnUi.png"));
+		btnNewButton.setBackground(new Color(255, 204, 0));
+		btnNewButton.setBounds(434, 22, 41, 41);
+		getContentPane().add(btnNewButton);
+		
+		JLabel lblNewLabel_10 = new JLabel("GOOGLE RESULTS");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_10.setForeground(SystemColor.desktop);
+		lblNewLabel_10.setBounds(10, 75, 253, 27);
+		getContentPane().add(lblNewLabel_10);
+		
+		JLabel lblNewLabel_10_1 = new JLabel("WIKIPEDIA RESULTS");
+		lblNewLabel_10_1.setForeground(Color.BLACK);
+		lblNewLabel_10_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_10_1.setBounds(10, 338, 253, 27);
+		getContentPane().add(lblNewLabel_10_1);
+		
+		
+	
+		
+		
+	}
+}
